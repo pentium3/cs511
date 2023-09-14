@@ -5,12 +5,7 @@ import Library.Tactic.Addarith
 import Library.Tactic.Cancel
 
 
-example {p q r : Prop} (h : p → (q → r)) : p ∧ q → r := by
-  intro h_pq
-  obtain ⟨ h_p, h_q ⟩ := h_pq
-  have h_qr : q → r := by apply h h_p
-  apply h_qr h_q
-
+axiom notnotE {p : Prop} (h : ¬ ¬ p) : p
 
 -- page21
 example {p q r : Prop} (h : p ∧ q → r) : p → (q → r) := by
@@ -31,5 +26,12 @@ example {p q r : Prop} (h : p → (q → r) ) : (p → q) → (p → r) := by
   apply h_r
 
 
-
+-- page 24
+example {p q r : Prop} (h1 : p ∧ ¬q → r) (h2 : ¬r) (h3 : p ) : q := by
+  have h_nnq : ¬¬q := by
+    intro h_nq
+    have h_pnq : p ∧ ¬q := And.intro h3 h_nq
+    have h_r : r := h1 h_pnq
+    contradiction
+  apply  notnotE h_nnq
 
