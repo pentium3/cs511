@@ -12,7 +12,7 @@ axiom notnotE {p : Prop} (h : ¬ ¬ p) : p
 
 -- 5a
 -- example (x : ℚ) : ∃ y : ℚ, y ^ 2 > x := by
-
+--   have h := le_or_gt x 0
 
 
 -- 5b
