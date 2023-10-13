@@ -16,7 +16,6 @@ import Library.Tactic.Use
 -- example : ∃! x : ℚ, ∀ a, a ≥ 1 → a ≤ 3 → (a - x) ^ 2 ≤ 1 := by
 --   sorry
 
-
 --q5.2
 example : ∃! x : ℚ, 4 * x - 3 = 9 := by
   use 3
