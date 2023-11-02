@@ -11,19 +11,42 @@ notation3 (prettyPrint := false) "forall_sufficiently_large "(...)", "r:(scoped 
 
 /- 2 points -/
 theorem problem4a {a b d : ℤ} (h : a ≡ b [ZMOD d]) (n : ℕ) : a ^ n ≡ b ^ n [ZMOD d] := by
-  sorry
+  simple_induction n with k IH
+  · use 0
+    calc
+      a ^ 0 - b ^ 0 = d * 0 := by ring
+      _ = d * 0 := by ring
+  · obtain ⟨x, hx⟩ := IH
+    obtain ⟨y, hy⟩ := h
+    use (a * x + (b ^ k) * y)
+    calc
+      a ^ (k + 1) - b ^ (k + 1) = a * (a ^ k - b ^ k) + b ^ k * (a - b) := by ring
+      _ = a * (d * x) + (b ^ k) * (d * y):= by rw [hx,hy]
+      _ = d * (a * x + (b ^ k) * y) := by ring
+
+
+
 
 /- 3 points -/
 theorem problem4b : forall_sufficiently_large n : ℕ, 2 ^ n ≥ n ^ 2 := by
   sorry
 
+
+
+
 /- 2 points -/
 theorem problem4c {a : ℝ} (ha : -1 ≤ a) (n : ℕ) : (1 + a) ^ n ≥ 1 + n * a := by
   sorry
 
+
+
+
 /- 3 points -/
 theorem problem4d : forall_sufficiently_large n : ℕ, (3:ℤ) ^ n ≥ 2 ^ n + 100 := by
   sorry
+
+
+
 
 /- 5 points -/
 def foo : ℕ → ℕ
