@@ -29,21 +29,58 @@ theorem problem4a {a b d : ℤ} (h : a ≡ b [ZMOD d]) (n : ℕ) : a ^ n ≡ b ^
 
 /- 3 points -/
 theorem problem4b : forall_sufficiently_large n : ℕ, 2 ^ n ≥ n ^ 2 := by
-  sorry
+  dsimp
+  use 4
+  intro n hn
+  induction_from_starting_point n, hn with k hk IH
+  · numbers    -- base case
+  · calc       -- inductive step
+      2 ^ (k + 1) = 2 * 2 ^ k := by ring
+      _ ≥ 2 * k ^ 2 := by rel[IH]
+      _ = k ^ 2 + k * k := by ring
+      _ ≥ k ^ 2 + 4 * k := by rel[hk]
+      _ = k ^ 2 + 2 * k + 2 * k := by ring
+      _ ≥ k ^ 2 + 2 * k + 2 * 4 := by rel[hk]
+      _ = (k + 1) ^ 2 + 7 := by ring
+      _ ≥ (k + 1) ^ 2 := by extra
 
 
 
 
 /- 2 points -/
 theorem problem4c {a : ℝ} (ha : -1 ≤ a) (n : ℕ) : (1 + a) ^ n ≥ 1 + n * a := by
-  sorry
+  simple_induction n with k IH
+  · calc    -- base case n=0
+       (1 + a) ^ 0 = 1 := by ring
+       _ ≥ 1  := by extra
+       _ = 1 + 0*a  := by ring
+  · have h1 : 0 ≤ 1 + a := by addarith [ha]    -- inductive step
+    calc
+      (1 + a) ^ (k + 1) = (1 + a) ^ k * (1 + a) := by ring
+      _ ≥ (1 + k * a) * (1 + a) := by rel [IH]
+      _ = 1 + a + k*a + k*a^2 := by ring
+      _ ≥ 1 + a + k*a  := by extra
+      _ = 1 + (k+1) * a := by ring
+
 
 
 
 
 /- 3 points -/
 theorem problem4d : forall_sufficiently_large n : ℕ, (3:ℤ) ^ n ≥ 2 ^ n + 100 := by
-  sorry
+  dsimp
+  use 5
+  intro n hn
+  induction_from_starting_point n, hn with k hk IH
+  · numbers    -- base case
+  · calc       -- inductive step
+      (3:ℤ) ^ (k + 1) = 3 * (3 ^ k) := by ring
+      _ ≥ 3 * (2 ^ k + 100) := by rel[IH]
+      _ = 2 * (2 ^ k + 100) + 1 * (2 ^ k + 100) := by ring
+      _ ≥ 2 * (2 ^ k + 100) := by extra
+      _ = 2 * (2 ^ k) + 2 * 100 := by ring
+      _ = 2 ^ (k + 1) + 100 + 100 := by ring
+      _ ≥ 2 ^ (k + 1) + 100 := by extra
 
 
 
